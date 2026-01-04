@@ -1,0 +1,27 @@
+{
+  "scanned_path": "samples",
+  "total_files": 8,
+  "detections": [
+    {
+      "file": "samples\\suspicious\\eicar_test_file.txt",
+      "sha256": "c0c05d70fcfa91745e4d9d809a10e1626d8c62dc179997c73381adcd88cb30dd",
+      "status": "DETECTED",
+      "score": 10,
+      "reasons": [
+        "signature_match"
+      ]
+    },
+    {
+      "file": "samples\\suspicious\\invoice.pdf.exe",
+      "sha256": "7eb9d61387957b8df5906b6072ea25c029eefb2b0b05041613e0d9a77ab81058",
+      "status": "SUSPICIOUS",
+      "score": 5,
+      "reasons": [
+        "double_extension",
+        "suspicious_extension"
+      ]
+    }
+  ],
+  "clean": 6,
+  "errors": []
+}
