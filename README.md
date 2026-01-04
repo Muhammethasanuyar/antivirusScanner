@@ -1,81 +1,81 @@
-# Antivirus Scanner
+# Antivirüs Tarayıcı
 
-A lightweight, educational antivirus scanner written in Python. This tool performs file scanning using SHA-256 signature matching and heuristic analysis to detect potential threats.
+Python ile yazılmış hafif, eğitici bir antivirüs tarayıcısı. Bu araç, potansiyel tehditleri tespit etmek için SHA-256 imza eşleşmesi ve sezgisel analiz (heuristic) kullanarak dosya taraması gerçekleştirir.
 
-## Features
+## Özellikler
 
-- **Signature-based Detection**: Identifies known threats by comparing file hashes (SHA-256) against a local database (`signatures.json`).
-- **Heuristic Analysis**: Detects suspicious files based on behavioral patterns and attributes:
-    - **Double Extensions**: Flags files like `document.pdf.exe`.
-    - **Suspicious Extensions**: Alerts on potentially dangerous file types (e.g., `.bat`, `.scr`, `.vbs`).
-    - **Suspicious Strings**: Scans file content for keywords often associated with malware (e.g., `powershell`, `/bin/sh`).
-- **Detailed Reporting**: Generates a comprehensive JSON report containing scan statistics, detected threats, and suspicious files with reasons.
-- **CLI Interface**: Simple command-line interface for easy integration and usage.
+- **İmza Tabanlı Tespit**: Dosya özetlerini (SHA-256) yerel bir veritabanı (`signatures.json`) ile karşılaştırarak bilinen tehditleri tanımlar.
+- **Sezgisel Analiz**: Davranışsal kalıplara ve özelliklere dayanarak şüpheli dosyaları tespit eder:
+    - **Çift Uzantılar**: `belge.pdf.exe` gibi dosyaları işaretler.
+    - **Şüpheli Uzantılar**: Potansiyel olarak tehlikeli dosya türleri (örneğin `.bat`, `.scr`, `.vbs`) konusunda uyarır.
+    - **Şüpheli Dizeler**: Dosya içeriğinde genellikle kötü amaçlı yazılımlarla ilişkilendirilen anahtar kelimeleri (örneğin `powershell`, `/bin/sh`) tarar.
+- **Detaylı Raporlama**: Tarama istatistiklerini, tespit edilen tehditleri ve şüphe nedenleriyle birlikte şüpheli dosyaları içeren kapsamlı bir JSON raporu oluşturur.
+- **CLI Arayüzü**: Kolay entegrasyon ve kullanım için basit komut satırı arayüzü.
 
-## Installation
+## Kurulum
 
-No external dependencies are required. The project uses the Python standard library.
+Harici bir bağımlılık gerekmez. Proje Python standart kütüphanesini kullanır.
 
-1.  Clone the repository:
+1.  Depoyu klonlayın:
     ```bash
     git clone git@github.com:Muhammethasanuyar/antivirusScanner.git
     cd antivirusScanner
     ```
 
-2.  Ensure you have Python 3.x installed.
+2.  Python 3.x sürümünün yüklü olduğundan emin olun.
 
-## Usage
+## Kullanım
 
-Run the scanner from the root directory of the project using the following command:
+Tarayıcıyı projenin kök dizininden aşağıdaki komutu kullanarak çalıştırın:
 
 ```bash
-python -m src.app --path <directory_to_scan> --out <output_report_path> [options]
+python -m src.app --path <taranacak_dizin> --out <cikti_rapor_yolu> [secenekler]
 ```
 
-### Arguments
+### Argümanlar
 
-- `--path`: (Required) The directory path to scan.
-- `--out`: (Required) The path where the JSON report will be saved.
-- `--signatures`: (Optional) Path to the signature database file. Defaults to `data/signatures.json`.
+- `--path`: (Zorunlu) Taranacak dizin yolu.
+- `--out`: (Zorunlu) JSON raporunun kaydedileceği yol.
+- `--signatures`: (İsteğe Bağlı) İmza veritabanı dosyasının yolu. Varsayılan olarak `data/signatures.json`.
 
-### Example
+### Örnek
 
-To scan the `samples` directory and save the report to `output/report.json`:
+`samples` dizinini taramak ve raporu `output/report.json` dosyasına kaydetmek için:
 
 ```bash
 python -m src.app --path samples --out output/report.json
 ```
 
-## Project Structure
+## Proje Yapısı
 
 ```
 .
 ├── data/
-│   └── signatures.json    # Database of known malware SHA-256 hashes
+│   └── signatures.json    # Bilinen kötü amaçlı yazılım SHA-256 özetlerinin veritabanı
 ├── src/
-│   ├── app.py             # Main entry point and CLI handler
-│   ├── scanner.py         # Core scanning logic (file traversal, orchestration)
-│   ├── hasher.py          # SHA-256 hash calculation utility
-│   ├── signatures.py      # Signature loading and matching logic
-│   ├── rules.py           # Heuristic analysis rules
-│   └── report.py          # JSON report generation
-├── samples/               # Directory for testing with sample files
-├── output/                # Directory for scan reports
-└── README.md              # Project documentation
+│   ├── app.py             # Ana giriş noktası ve CLI işleyicisi
+│   ├── scanner.py         # Temel tarama mantığı (dosya gezme, orkestrasyon)
+│   ├── hasher.py          # SHA-256 özet hesaplama aracı
+│   ├── signatures.py      # İmza yükleme ve eşleştirme mantığı
+│   ├── rules.py           # Sezgisel analiz kuralları
+│   └── report.py          # JSON rapor oluşturma
+├── samples/               # Örnek dosyalarla test için dizin
+├── output/                # Tarama raporları için dizin
+└── README.md              # Proje dokümantasyonu
 ```
 
-## Output Format
+## Çıktı Formatı
 
-The generated JSON report includes:
-- **Scan Information**: Path scanned, timestamp (implied).
-- **Statistics**: Total files scanned, number of clean files, detections.
-- **Detections**: A list of detected or suspicious files with:
-    - File path
-    - SHA-256 hash
-    - Status (`DETECTED` or `SUSPICIOUS`)
-    - Threat score
-    - specific reasons for detection
+Oluşturulan JSON raporu şunları içerir:
+- **Tarama Bilgisi**: Taranan yol, zaman damgası (zımni).
+- **İstatistikler**: Taranan toplam dosya, temiz dosya sayısı, tespitler.
+- **Tespitler**: Aşağıdaki bilgilere sahip tespit edilen veya şüpheli dosyaların listesi:
+    - Dosya yolu
+    - SHA-256 özeti
+    - Durum (`DETECTED` (TESPİT EDİLDİ) veya `SUSPICIOUS` (ŞÜPHELİ))
+    - Tehdit puanı
+    - Tespit için belirli nedenler
 
-## Disclaimer
+## Yasal Uyarı
 
-**Educational Use Only**: This tool is designed for educational purposes to demonstrate the concepts of file scanning and malware detection. It is **not** a substitute for commercial antivirus software and does not provide real-time protection or remediation/removal capabilities. Use with caution when handling real malware samples.
+**Sadece Eğitim Amaçlıdır**: Bu araç, dosya tarama ve kötü amaçlı yazılım tespiti kavramlarını göstermek için eğitim amaçlı tasarlanmıştır. Ticari antivirüs yazılımlarının yerini **tutmaz** ve gerçek zamanlı koruma veya iyileştirme/kaldırma yetenekleri sağlamaz. Gerçek kötü amaçlı yazılım örneklerini kullanırken dikkatli olun.
